@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import BigMark from "../../components/BigMark";
 import SmallMark from "../../components/SmallMark";
 import constants from "../../styles/constants";
 import styles from "../../styles/styles";
@@ -58,10 +59,10 @@ const ViewShotButton = styled.View`
   background-color: ${styles.whiteColor};
 `;
 
-function CameraPresenter({
-  toggleStampMode = () => null,
-  toggleMode = "small",
-}) {
+function CameraPresenter({ toggleStampMode = () => null, toggleMode }) {
+  useEffect(() => {
+    console.log(toggleMode);
+  }, [toggleMode]);
   return (
     <SafeAreaView>
       <View>
@@ -73,7 +74,9 @@ function CameraPresenter({
             <Text active={toggleMode === "big" && true}>큰 스탬프</Text>
           </Touch>
         </ToggleBox>
-        <CameraView>{toggleMode && "small" ? <SmallMark /> : null}</CameraView>
+        <CameraView>
+          {toggleMode === "small" ? <SmallMark /> : <BigMark />}
+        </CameraView>
         <Bottom>
           <ShallButton>
             <ViewShotButton />

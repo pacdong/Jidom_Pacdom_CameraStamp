@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import styles from "../styles/styles";
 import JIDONPACDOMIMAGE from "../assets/together.png";
+import constants from "../styles/constants";
 
 const View = styled.View`
   flex: 1;
@@ -11,17 +12,17 @@ const View = styled.View`
 
 const TopBox = styled.View`
   position: absolute;
-  top: 16px;
   left: 16px;
   flex-direction: row;
 `;
 const Image = styled.Image`
-  width: 80px;
-  height: 140px;
+  width: ${constants.width * 0.46};
+  height: ${constants.width};
 `;
 
 const TextBox = styled.View`
-  margin-left: 8px;
+  margin-left: 0px;
+  margin-top: 16px;
 `;
 const TopText = styled.Text`
   font-weight: bold;
@@ -48,7 +49,7 @@ const TimeText = styled.Text`
   text-align: center;
 `;
 
-function SmallMark() {
+function BigMark() {
   const yearDate = new Date().getFullYear();
   const monthDate = new Date().getMonth();
   const dayDate = new Date().getDay();
@@ -78,4 +79,4 @@ function SmallMark() {
   );
 }
 
-export default React.memo(SmallMark);
+export default React.memo(BigMark);

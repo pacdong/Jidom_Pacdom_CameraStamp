@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CameraPresenter from "./CameraPresenter";
 
 const CameraContainer = () => {
-  const [toggleMode, setToggleMode] = useState("small");
+  const [toggleMode, setToggleMode] = useState("big");
 
   const toggleStampMode = (prop) => {
     setToggleMode(prop);
