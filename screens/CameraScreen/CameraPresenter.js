@@ -4,6 +4,7 @@ import BigMark from "../../components/BigMark";
 import SmallMark from "../../components/SmallMark";
 import constants from "../../styles/constants";
 import styles from "../../styles/styles";
+import { Ionicons } from "@expo/vector-icons";
 
 const View = styled.View`
   flex: 1;
@@ -46,7 +47,13 @@ const Bottom = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 40px;
+  flex-direction: row;
 `;
+const ChangeView = styled.View`
+  position: absolute;
+  right: 30px;
+`;
+const ChangeButton = styled.TouchableOpacity``;
 const ShallButton = styled.TouchableOpacity`
   border: 2px solid ${styles.whiteColor};
   padding: 4px;
@@ -59,7 +66,13 @@ const ViewShotButton = styled.View`
   background-color: ${styles.whiteColor};
 `;
 
-function CameraPresenter({ toggleStampMode = () => null, toggleMode }) {
+function CameraPresenter({
+  toggleStampMode = () => null,
+  toggleMode,
+  Camera,
+  changeCamera,
+  type,
+}) {
   useEffect(() => {
     console.log(toggleMode);
   }, [toggleMode]);
@@ -75,12 +88,22 @@ function CameraPresenter({ toggleStampMode = () => null, toggleMode }) {
           </Touch>
         </ToggleBox>
         <CameraView>
-          {toggleMode === "small" ? <SmallMark /> : <BigMark />}
+          <Camera
+            style={{ width: constants.width, height: constants.width }}
+            type={type}
+          >
+            {toggleMode === "small" ? <SmallMark /> : <BigMark />}
+          </Camera>
         </CameraView>
         <Bottom>
           <ShallButton>
             <ViewShotButton />
           </ShallButton>
+          <ChangeView>
+            <ChangeButton onPress={changeCamera}>
+              <Ionicons name="camera-reverse-outline" size={28} color="white" />
+            </ChangeButton>
+          </ChangeView>
         </Bottom>
       </View>
     </SafeAreaView>
