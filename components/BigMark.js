@@ -11,13 +11,14 @@ const View = styled.View`
 `;
 
 const TopBox = styled.View`
-  position: absolute;
+  /* position: absolute; */
   left: 16px;
   flex-direction: row;
 `;
 const Image = styled.Image`
-  width: ${constants.width * 0.46};
+  width: ${constants.width * 0.44};
   height: ${constants.width};
+  z-index: -1;
 `;
 
 const TextBox = styled.View`
@@ -35,6 +36,8 @@ const BottomBox = styled.View`
   bottom: 16px;
   align-items: center;
   justify-content: center;
+  width: ${constants.width};
+  z-index: 1000;
 `;
 const YearMonthText = styled.Text`
   font-weight: bold;

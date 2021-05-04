@@ -2,22 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import styles from "../styles/styles";
 import JIDONPACDOMIMAGE from "../assets/together.png";
+import constants from "../styles/constants";
 
 const View = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TopBox = styled.View`
-  position: absolute;
   top: 16px;
   left: 16px;
   flex-direction: row;
+  width: ${constants.width};
+  height: ${Math.round(constants.height / 2)};
 `;
 const Image = styled.Image`
-  width: 80px;
-  height: 140px;
+  width: 90px;
+  height: 160px;
 `;
 
 const TextBox = styled.View`
@@ -33,19 +33,17 @@ const BottomBox = styled.View`
   position: absolute;
   bottom: 16px;
   align-items: center;
-  justify-content: center;
+  width: ${constants.width};
 `;
 const YearMonthText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
   font-size: 32px;
-  text-align: center;
 `;
 const TimeText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
   font-size: 54px;
-  text-align: center;
 `;
 
 function SmallMark() {

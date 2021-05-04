@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Alert } from "react-native";
 import CameraPresenter from "./CameraPresenter";
 import { Camera } from "expo-camera";
+import * as Permissions from "expo-permissions";
 
 const CameraContainer = () => {
-  const [toggleMode, setToggleMode] = useState("big");
+  const [toggleMode, setToggleMode] = useState("small");
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -15,6 +16,10 @@ const CameraContainer = () => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
+      const { _status } = await Permissions.askAsync(Permissions.CAMERA);
+      const { __status } = await Permissions.askAsync(
+        Permissions.MEDIA_LIBRARY
+      );
       setHasPermission(status === "granted");
     })();
   }, []);

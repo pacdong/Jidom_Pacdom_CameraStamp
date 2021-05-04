@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BigMark from "../../components/BigMark";
 import SmallMark from "../../components/SmallMark";
 import constants from "../../styles/constants";
 import styles from "../../styles/styles";
 import { Ionicons } from "@expo/vector-icons";
+import ViewShot from "react-native-view-shot";
+import * as MediaLibrary from "expo-media-library";
+import { Alert } from "react-native";
 
 const View = styled.View`
   flex: 1;
@@ -38,7 +41,12 @@ const Text = styled.Text`
 const CameraView = styled.View`
   width: ${constants.width};
   height: ${constants.width};
-  background-color: yellowgreen;
+  /* position: relative; */
+`;
+
+const TempCameraView = styled.Image`
+  width: ${constants.width};
+  height: ${constants.width};
 `;
 
 const Bottom = styled.View`
@@ -66,6 +74,12 @@ const ViewShotButton = styled.View`
   background-color: ${styles.whiteColor};
 `;
 
+const StampBox = styled.View`
+  position: absolute;
+  width: ${constants.width};
+  height: ${constants.width};
+`;
+
 function CameraPresenter({
   toggleStampMode = () => null,
   toggleMode,
@@ -73,30 +87,105 @@ function CameraPresenter({
   changeCamera,
   type,
 }) {
+  const [tempURI, setTempURI] = useState("");
+  const captureRef = useRef();
+  const cameraRef = useRef();
+
+  const getPhotoUri = async () => {
+    console.log("겟포토 실행");
+    const uri = await captureRef.current.capture();
+    console.log("👂👂 Image saved to", uri);
+    return uri;
+  };
+
+  const onCapture = async () => {
+    console.log("캡쳐 실행");
+    try {
+      const uri = await getPhotoUri();
+      await MediaLibrary.saveToLibraryAsync(uri);
+      return Alert.alert("이미지가 저장되었습니다");
+    } catch (e) {
+      console.log("사진 저장에 실패했어요", e);
+    } finally {
+      setTempURI("");
+    }
+  };
+
+  const takePhoto = async () => {
+    try {
+      const { uri } = await cameraRef.current.takePictureAsync({
+        quality: 1,
+      });
+      if (uri) {
+        await setTempURI(uri);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    console.log(toggleMode);
-  }, [toggleMode]);
+    if (tempURI !== "") {
+      Alert.alert(
+        "현재 사진을",
+        "사진을 앨범에 저장하시겠어요?",
+        [
+          {
+            text: "취소",
+            onPress: () => setTempURI(""),
+            style: "cancel",
+          },
+          {
+            text: "동의하기",
+            onPress: () => onCapture(),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      return;
+    }
+  }, [tempURI]);
+
+  console.log("tempURI", tempURI);
   return (
     <SafeAreaView>
       <View>
         <ToggleBox>
           <Touch onPress={() => toggleStampMode("small")}>
-            <Text active={toggleMode === "small" && true}>작은 스탬프</Text>
+            <Text active={toggleMode === "small" && true}>작은 지동딱뽕</Text>
           </Touch>
           <Touch onPress={() => toggleStampMode("big")}>
-            <Text active={toggleMode === "big" && true}>큰 스탬프</Text>
+            <Text active={toggleMode === "big" && true}>큰 지동딱뽕</Text>
           </Touch>
         </ToggleBox>
-        <CameraView>
+        {tempURI === "" && (
           <Camera
             style={{ width: constants.width, height: constants.width }}
             type={type}
+            ref={cameraRef}
           >
-            {toggleMode === "small" ? <SmallMark /> : <BigMark />}
+            <CameraView>
+              {/* {toggleMode === "small" ? <SmallMark /> : <BigMark />} */}
+              {toggleMode === "small" && <SmallMark />}
+              {toggleMode === "big" && <BigMark />}
+            </CameraView>
           </Camera>
-        </CameraView>
+        )}
+        {tempURI !== "" && (
+          <ViewShot ref={captureRef} options={{ format: "jpg", quality: 0.9 }}>
+            <CameraView>
+              <TempCameraView source={{ uri: tempURI }} />
+              <StampBox>
+                {/* {toggleMode === "small" ? <SmallMark /> : <BigMark />} */}
+                {toggleMode === "small" && <SmallMark />}
+                {toggleMode === "big" && <BigMark />}
+              </StampBox>
+            </CameraView>
+          </ViewShot>
+        )}
         <Bottom>
-          <ShallButton>
+          <ShallButton onPress={takePhoto}>
             <ViewShotButton />
           </ShallButton>
           <ChangeView>
