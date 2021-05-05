@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "jidom_pacdom_camera",
+    "name": "동동스탬프",
     "slug": "jidom_pacdom_camera",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -24,7 +22,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.park_donghyeon.jidom_pacdom_camera"
+      "package": "com.park_donghyeon.jidom_pacdom_camera",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

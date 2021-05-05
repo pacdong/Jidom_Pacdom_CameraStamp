@@ -6,8 +6,6 @@ import constants from "../styles/constants";
 
 const View = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
 `;
 
 const TopBox = styled.View`
@@ -18,7 +16,6 @@ const TopBox = styled.View`
 const Image = styled.Image`
   width: ${constants.width * 0.44};
   height: ${constants.width};
-  z-index: -1;
 `;
 
 const TextBox = styled.View`
@@ -37,28 +34,26 @@ const BottomBox = styled.View`
   align-items: center;
   justify-content: center;
   width: ${constants.width};
-  z-index: 1000;
 `;
 const YearMonthText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
   font-size: 32px;
-  text-align: center;
 `;
 const TimeText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
   font-size: 54px;
-  text-align: center;
 `;
 
 function BigMark() {
-  const yearDate = new Date().getFullYear();
-  const monthDate = new Date().getMonth();
-  const dayDate = new Date().getDay();
+  const totalDate = new Date();
+  const yearDate = totalDate.getFullYear();
+  const monthDate = totalDate.getMonth() + 1;
+  const dayDate = totalDate.getDate();
 
-  const hourDate = new Date().getHours();
-  const minutesDate = new Date().getMinutes();
+  const hourDate = totalDate.getHours();
+  const minutesDate = totalDate.getMinutes();
 
   return (
     <View>

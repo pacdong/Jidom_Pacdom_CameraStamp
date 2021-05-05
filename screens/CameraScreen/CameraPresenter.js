@@ -7,7 +7,7 @@ import styles from "../../styles/styles";
 import { Ionicons } from "@expo/vector-icons";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 
 const View = styled.View`
   flex: 1;
@@ -147,7 +147,6 @@ function CameraPresenter({
     }
   }, [tempURI]);
 
-  console.log("tempURI", tempURI);
   return (
     <SafeAreaView>
       <View>
@@ -155,24 +154,31 @@ function CameraPresenter({
           <Touch onPress={() => toggleStampMode("small")}>
             <Text active={toggleMode === "small" && true}>작은 지동딱뽕</Text>
           </Touch>
-          <Touch onPress={() => toggleStampMode("big")}>
-            <Text active={toggleMode === "big" && true}>큰 지동딱뽕</Text>
-          </Touch>
+          {Platform.OS === "ios" && (
+            <Touch onPress={() => toggleStampMode("big")}>
+              <Text active={toggleMode === "big" && true}>큰 지동딱뽕</Text>
+            </Touch>
+          )}
         </ToggleBox>
-        {tempURI === "" && (
-          <Camera
-            style={{ width: constants.width, height: constants.width }}
-            type={type}
-            ref={cameraRef}
-          >
-            <CameraView>
+
+        {tempURI === "" ? (
+          <CameraView>
+            <Camera
+              style={{
+                width: constants.width,
+                height: constants.width,
+                flex: 1,
+              }}
+              ratio={"1:1"}
+              type={type}
+              ref={cameraRef}
+            >
               {/* {toggleMode === "small" ? <SmallMark /> : <BigMark />} */}
               {toggleMode === "small" && <SmallMark />}
               {toggleMode === "big" && <BigMark />}
-            </CameraView>
-          </Camera>
-        )}
-        {tempURI !== "" && (
+            </Camera>
+          </CameraView>
+        ) : (
           <ViewShot ref={captureRef} options={{ format: "jpg", quality: 0.9 }}>
             <CameraView>
               <TempCameraView source={{ uri: tempURI }} />
@@ -184,6 +190,7 @@ function CameraPresenter({
             </CameraView>
           </ViewShot>
         )}
+
         <Bottom>
           <ShallButton onPress={takePhoto}>
             <ViewShotButton />

@@ -15,9 +15,9 @@ const TopBox = styled.View`
   width: ${constants.width};
   height: ${Math.round(constants.height / 2)};
 `;
-const Image = styled.Image`
-  width: 90px;
-  height: 160px;
+const SmallTogetherImage = styled.Image`
+  width: ${constants.width / 4};
+  height: ${constants.width / 3};
 `;
 
 const TextBox = styled.View`
@@ -47,17 +47,18 @@ const TimeText = styled.Text`
 `;
 
 function SmallMark() {
-  const yearDate = new Date().getFullYear();
-  const monthDate = new Date().getMonth();
-  const dayDate = new Date().getDay();
+  const totalDate = new Date();
+  const yearDate = totalDate.getFullYear();
+  const monthDate = totalDate.getMonth() + 1;
+  const dayDate = totalDate.getDate();
 
-  const hourDate = new Date().getHours();
-  const minutesDate = new Date().getMinutes();
+  const hourDate = totalDate.getHours();
+  const minutesDate = totalDate.getMinutes();
 
   return (
     <View>
       <TopBox>
-        <Image source={JIDONPACDOMIMAGE} resizeMode="contain" />
+        <SmallTogetherImage source={JIDONPACDOMIMAGE} resizeMode="contain" />
         <TextBox>
           <TopText>지도니와</TopText>
           <TopText> 딱뽕이의 운동스탬프</TopText>
