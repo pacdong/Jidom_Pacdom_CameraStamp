@@ -24,10 +24,6 @@ const CameraContainer = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log("토글실행");
-  }, [toggleMode]);
-
   if (hasPermission === null && hasPermission === false) {
     Alert.alert("알림", "카메라 권한을 설정해주세요.");
   }

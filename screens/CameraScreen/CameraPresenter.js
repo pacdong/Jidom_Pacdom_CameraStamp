@@ -103,7 +103,7 @@ function CameraPresenter({
     try {
       const uri = await getPhotoUri();
       await MediaLibrary.saveToLibraryAsync(uri);
-      return Alert.alert("이미지가 저장되었습니다");
+      return;
     } catch (e) {
       console.log("사진 저장에 실패했어요", e);
     } finally {
@@ -127,7 +127,7 @@ function CameraPresenter({
   useEffect(() => {
     if (tempURI !== "") {
       Alert.alert(
-        "현재 사진을",
+        "사진 저장",
         "사진을 앨범에 저장하시겠어요?",
         [
           {
@@ -136,7 +136,7 @@ function CameraPresenter({
             style: "cancel",
           },
           {
-            text: "동의하기",
+            text: "저장",
             onPress: () => onCapture(),
           },
         ],

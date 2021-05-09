@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import styles from "../styles/styles";
 import JIDONPACDOMIMAGE from "../assets/together.png";
@@ -47,13 +47,23 @@ const TimeText = styled.Text`
 `;
 
 function BigMark() {
-  const totalDate = new Date();
-  const yearDate = totalDate.getFullYear();
-  const monthDate = totalDate.getMonth() + 1;
-  const dayDate = totalDate.getDate();
+  const [timeDate, setTimeDate] = useState(new Date());
 
-  const hourDate = totalDate.getHours();
-  const minutesDate = totalDate.getMinutes();
+  useEffect(() => {
+    setInterval(() => {
+      const newTimeDate = new Date();
+      if (timeDate.getMinutes() !== newTimeDate.getMinutes()) {
+        return setTimeDate(newTimeDate);
+      }
+    }, 30000);
+  }, [timeDate]);
+
+  const yearDate = timeDate.getFullYear();
+  const monthDate = timeDate.getMonth() + 1;
+  const dayDate = timeDate.getDate();
+
+  const hourDate = timeDate.getHours();
+  const minutesDate = timeDate.getMinutes();
 
   return (
     <View>
