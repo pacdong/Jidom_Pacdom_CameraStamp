@@ -152,13 +152,13 @@ function CameraPresenter({
       <View>
         <ToggleBox>
           <Touch onPress={() => toggleStampMode("small")}>
-            <Text active={toggleMode === "small" && true}>작은 지동딱뽕</Text>
+            <Text active={toggleMode === "small" && true}>지동딱뽕 스탬프</Text>
           </Touch>
-          {Platform.OS === "ios" && (
+          {/* {Platform.OS === "ios" && (
             <Touch onPress={() => toggleStampMode("big")}>
               <Text active={toggleMode === "big" && true}>큰 지동딱뽕</Text>
             </Touch>
-          )}
+          )} */}
         </ToggleBox>
 
         {tempURI === "" ? (
@@ -175,7 +175,7 @@ function CameraPresenter({
             >
               {/* {toggleMode === "small" ? <SmallMark /> : <BigMark />} */}
               {toggleMode === "small" && <SmallMark />}
-              {toggleMode === "big" && <BigMark />}
+              {/* {toggleMode === "big" && <BigMark />} */}
             </Camera>
           </CameraView>
         ) : (

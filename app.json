@@ -2,7 +2,7 @@
   "expo": {
     "name": "동동스탬프",
     "slug": "jidom_pacdom_camera",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,7 +23,7 @@
         "backgroundColor": "#000000"
       },
       "package": "com.park_donghyeon.jidom_pacdom_camera",
-      "versionCode": 2
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"

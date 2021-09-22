@@ -10,23 +10,36 @@ const View = styled.View`
 
 const TopBox = styled.View`
   top: 16px;
-  left: 16px;
   flex-direction: row;
+  position: relative;
   width: ${constants.width};
   height: ${Math.round(constants.height / 2)};
+
+  justify-content: center;
 `;
 const SmallTogetherImage = styled.Image`
-  width: ${constants.width / 4};
-  height: ${constants.width / 3};
+  position: absolute;
+  left: 20px;
+  width: 80px;
+  height: 80px;
 `;
 
 const TextBox = styled.View`
-  margin-left: 8px;
+  align-items: center;
+`;
+
+const TextDiv = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding-top: 16px;
 `;
 const TopText = styled.Text`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   color: ${styles.whiteColor};
-  font-size: 22px;
+  font-size: 20px;
 `;
 
 const BottomBox = styled.View`
@@ -38,12 +51,12 @@ const BottomBox = styled.View`
 const YearMonthText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
-  font-size: 32px;
+  font-size: 22px;
 `;
 const TimeText = styled.Text`
   font-weight: bold;
   color: ${styles.whiteColor};
-  font-size: 54px;
+  font-size: 34px;
 `;
 
 function SmallMark() {
@@ -70,8 +83,10 @@ function SmallMark() {
       <TopBox>
         <SmallTogetherImage source={JIDONPACDOMIMAGE} resizeMode="contain" />
         <TextBox>
-          <TopText>지도니와</TopText>
-          <TopText> 딱뽕이의 운동스탬프</TopText>
+          <TextDiv>
+            <TopText>지도니 & 딱뽕이</TopText>
+            <TopText>운동스탬프</TopText>
+          </TextDiv>
         </TextBox>
       </TopBox>
       <BottomBox>
